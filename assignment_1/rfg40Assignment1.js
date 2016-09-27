@@ -83,7 +83,7 @@ function turn_array_into_stacks(array) {
 /************************************************************************
 *
 *                       LOADING THE OPERATORS
-* 	|| array[i] == operations[1] || array[i] == operations[2]
+* 	
 ************************************************************************/
 function load_operators(array) {
 	var operations = ['+', '-', '*']; 
@@ -342,18 +342,46 @@ function output_stack(stack_input, operators, solution) {
 		iterator++; 
 	}
 
-	
-	for(var t = 1; t <= solution[0]._size; t++) {
-		string = string + solution[0]._coef[t] + "x^" + solution[0]._degree[t] ; 
+	var t = 0; 
+	for(var key in solution) {
+		if(key == '0') {
+			string = string + solution[key]; 
+		}
+		else if(key == '1') {
+			string = string + solution[key] + "x"; 
+		}
+		else {
+			string = string + solution[key] + "x^" + key ; 
+		}
 			
-		if(t !== solution[0]._size) {
+		if(t !== Object.keys(solution).length - 1) {
 			string = string + " + "; 
 		}
+		
+		t++; 
 	}
 	
 	return string; 
 }
 
+/************************************************************************
+*
+*                   			TURN STACK INTO HASH 
+*	When pushed into hash the keys are automatically ordered 	
+************************************************************************/
+function stack_into_hash(solution2) {
+	var container = {}; 
+	
+	for(var x = 1; x <= solution2[0]._size; x++) {
+
+		container[solution2[0]._degree[x]] = solution2[0]._coef[x]
+		
+		
+	}
+	
+	return container; 
+	
+}
 /************************************************************************
 *
 *                   			MAIN  
@@ -365,24 +393,22 @@ var stack = [];
 var solution = []; 
 var i = 0; 
 
-array = load_file("assignment2DataFile.txt");
+var array = load_file("assignment2DataFile.txt");
  
-polynomials = load_polynomials(array); 
+var polynomials = load_polynomials(array); 
 
-solid_stack = turn_array_into_stacks(polynomials); 
+var original_stack = turn_array_into_stacks(polynomials); 
 
-stack = turn_array_into_stacks(polynomials); 
+var stack = turn_array_into_stacks(polynomials); 
 
-operators = load_operators(array); 
+var operators = load_operators(array); 
 
-var sum = multiplication(stack[0], stack[1]); 
-
-var normalized = normalize_the_following(sum); 
-
-var sum2 = addition(sum, stack[2]); 
+//var normalized = normalize_the_following(sum); 
 
 var solution = perform_calculation(stack, operators);
- 
-var output = output_stack(solid_stack, operators, solution); 
+
+var solution3 = stack_into_hash(solution); 
+
+var output = output_stack(original_stack, operators, solution3); 
 
 console.log(output); 
