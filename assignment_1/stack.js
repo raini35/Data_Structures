@@ -390,7 +390,7 @@ function output_stack(stack_input, operators, solution) {
 
 /************************************************************************
 *
-*                    TURN STACK INTO HASH 
+*                   			TURN STACK INTO HASH 
 *	When pushed into hash the keys are automatically ordered 	
 ************************************************************************/
 function stack_into_hash(solution2) {
@@ -406,32 +406,3 @@ function stack_into_hash(solution2) {
 	return container; 
 	
 }
-
-/************************************************************************
-*
-*                   			MAIN  
-*	
-************************************************************************/
-var polynomials = []; 
-var operators = []; 
-var stack = []; 
-var solution = []; 
-var i = 0; 
-
-var array = load_file("assignment2DataFile.txt");
- 
-var polynomials = load_polynomials(array); 
-
-var original_stack = turn_array_into_stacks(polynomials); 
-
-var stack = turn_array_into_stacks(polynomials); 
-
-var operators = load_operators(array); 
-
-var solution = perform_calculation(stack, operators);
-
-var revised_solution = stack_into_hash(solution); 
-
-var output = output_stack(original_stack, operators, revised_solution); 
-
-console.log(output); 
