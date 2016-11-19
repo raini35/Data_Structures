@@ -9,7 +9,6 @@ var BTreeNode = function(m) {
 	this.m = m; 
 	this.keys = []; 
 	this.pointers = []; 
-	this.parent = null; 
 }
 
 BTree.prototype.insert = function(value) {
@@ -23,25 +22,32 @@ BTree.prototype.insert = function(value) {
 
 BTree.prototype.insert_recursion = function(current, value) {
 	var i = current.searchForProperPlaceFor(value); 
-	
+		console.log("Ending if statement"); 
+
 	if(typeof i === "number") {
-		insert_recursion(current.pointers[i], value); 
+		console.log("if statement"); 
+		this.insert_recursion(current.pointers[i], value); 
 		
 	}
 	else {
 		current.keys.push(value); 
 		current.sortNode(); 
-		if(current.isOverloaded()) {
-			console.log("Entering if overloaded"); 
+		console.log("exiting value " + value); 
+		return; 
+
+	}
+	
+	console.log("Just exited the if statement"); 
+	if(current[i].isOverloaded()) {
+			console.log("Array is overloaded.");
+			/*console.log("Entering if overloaded"); 
 			var tree = current.splitNode(); 
 			if(current.children.length > 0) {
 				
 			}
 			console.log(tree); 
-			this._root = tree; 
-		}
+			this._root = tree; */
 	}
-	
 	
 }
 
@@ -106,6 +112,7 @@ hello.insert(30);
 hello.insert(20); 
 hello.insert(40); 
 hello.insert(50); 
-hello.insert(60);  
-
+hello.insert(60); 
+hello.insert(60); 
+a
 console.log(hello); 
