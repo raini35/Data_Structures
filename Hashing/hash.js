@@ -273,7 +273,7 @@ function output_mistakes(object) {
 	for(var key in object) {
 		var array = object[key]; 
 		for(var i = 0; i < array.length; i++) {
-			console.log('Line [' + key + "]: " +  array[i]);
+			console.log('Line[' + key + "]: " +  array[i]);
 		}
 	}
 
